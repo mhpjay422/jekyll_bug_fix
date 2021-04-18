@@ -137,6 +137,10 @@ class TestUtils < JekyllUnitTest
       end
     end
 
+    should "This should fail. pattern matching failure from https://github.com/jekyll/jekyll/issues/7973" do
+      assert_equal "மல்லிப்பூ வகைகள்", Utils.slugify("மல்லிப்பூ-வகைகள்")
+    end
+
     should "replace whitespace with hyphens" do
       assert_equal "working-with-drafts", Utils.slugify("Working with drafts")
     end
