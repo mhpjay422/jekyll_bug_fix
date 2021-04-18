@@ -137,11 +137,6 @@ class TestUtils < JekyllUnitTest
       end
     end
 
-    should "This should fail. pattern matching failure from https://github.com/jekyll/jekyll/issues/7973. tamil replacement issue" do
-      assert_equal "மல்லிப்பூ-வகைகள்", Utils.slugify("மல்லிப்பூ வகைகள்")
-      assert_equal "மல்லிப்பூ-வகைகள்", Utils.slugify("மல்லிப்பூ வகைகள்", mode => "pretty")
-    end
-
     should "replace whitespace with hyphens" do
       assert_equal "working-with-drafts", Utils.slugify("Working with drafts")
     end
@@ -179,6 +174,11 @@ class TestUtils < JekyllUnitTest
 
     should "replace punctuation in any scripts by hyphens" do
       assert_equal "5時-6時-三-一四", Utils.slugify("5時〜6時 三・一四")
+    end
+
+    should "not replace Unicode 'Mark, Letter or Number: Decimal Digit' catergory characters with hyphens" do
+      assert_equal "மல்லிப்பூ-வகைகள்", Utils.slugify("மல்லிப்பூ வகைகள்")
+      assert_equal "மல்லிப்பூ-வகைகள்", Utils.slugify("மல்லிப்பூ வகைகள்", :mode => "pretty")
     end
 
     should "not modify the original string" do
